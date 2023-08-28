@@ -5,7 +5,8 @@ protocol AddListTableViewCellDelegate: AnyObject {
 }
 
 class listViewTableViewCell: UITableViewCell {
- 
+    
+    @IBOutlet weak var listImage: UIImageView!
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var bikeName: UILabel!
     @IBOutlet weak var bikeModel: UILabel!
@@ -18,7 +19,7 @@ class listViewTableViewCell: UITableViewCell {
         backView.layer.masksToBounds = true
         self.contentView.backgroundColor = .clear
     }
-
+    
     @IBAction func editButtonAction(_ sender: UIButton) {
         let editButton = UIAction(title: "Edit") { _ in
             self.delegate?.editlist(with: self.indexPath)
@@ -29,7 +30,7 @@ class listViewTableViewCell: UITableViewCell {
         }
         
         let menu = UIMenu(children: [editButton, deleteButton])
-       sender.showsMenuAsPrimaryAction = true
+        sender.showsMenuAsPrimaryAction = true
         sender.menu = menu
     }
 }

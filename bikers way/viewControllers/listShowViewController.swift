@@ -59,12 +59,14 @@ extension listShowViewController : UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "listViewTableViewCell") as! listViewTableViewCell
+        cell.listImage.image = arrLists[indexPath.row].image
         cell.bikeName.text = arrLists[indexPath.row].bikeName
         cell.bikeModel.text = arrLists[indexPath.row].bikeModel
         cell.moreButton.tag = indexPath.row
         cell.indexPath = indexPath
         cell.delegate = self
         self.indexPath = indexPath
+        
         return cell
     }
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -77,6 +79,7 @@ extension listShowViewController : UITableViewDelegate,UITableViewDataSource{
         addData.isHidden = true
         addListVc.buttonTitle = true
         addListVc.delegate = self
+        addListVc.image = arrLists[indexPath.row].image
         addListVc.engineText = arrLists[indexPath.row].engineNumber
         addListVc.nameText = arrLists[indexPath.row].bikeName
         addListVc.modelText = arrLists[indexPath.row].bikeModel
@@ -128,6 +131,7 @@ extension listShowViewController: AddListTableViewCellDelegate {
         addData.isHidden = true
         addListVc.buttonTitle = true
         addListVc.delegate = self
+        addListVc.image = arrLists[indexPath.row].image
         addListVc.engineText = arrLists[indexPath.row].engineNumber
         addListVc.nameText = arrLists[index.row].bikeName
         addListVc.modelText = arrLists[index.row].bikeModel

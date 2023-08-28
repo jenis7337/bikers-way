@@ -7,6 +7,8 @@ protocol AddListVcDelegate: AnyObject {
 
 class addListViewController: UIViewController, UITextFieldDelegate{
     
+    @IBOutlet weak var selectImageButton: UIButton!
+    @IBOutlet weak var selectImage: UIImageView!
     @IBOutlet weak var popUp: UIView!
     @IBOutlet weak var activityLoader: UIActivityIndicatorView!
     @IBOutlet weak var bikeTextField: UITextField!
@@ -23,6 +25,7 @@ class addListViewController: UIViewController, UITextFieldDelegate{
     var modelText = String()
     var bikeTypeTxt = String()
     var plateNumberTxt = String()
+    var image = UIImage()
     var index = -1
     var buttonTitle: Bool = false
     
@@ -32,12 +35,15 @@ class addListViewController: UIViewController, UITextFieldDelegate{
         super.viewDidLoad()
         setButton()
         setData()
+    }
+    
+    func setButton() {
         popUp.layer.cornerRadius = 10
         activityLoader.stopAnimating()
         activityLoader.isHidden = true
-    }
-
-    func setButton() {
+        selectImage.layer.borderWidth = 3
+        selectImage.layer.cornerRadius = 10
+        selectImage.layer.borderColor = UIColor.systemGray.cgColor
         addButton.layer.cornerRadius = 8
         addButton.layer.borderWidth = 1.4
         addButton.layer.masksToBounds = true
@@ -57,13 +63,17 @@ class addListViewController: UIViewController, UITextFieldDelegate{
         }
         if buttonTitle {
             addButton.setTitle("Edit", for: .normal)
+            selectImageButton.layer.borderWidth = 0
+            selectImageButton.setTitleColor(.white, for: .normal)
+            selectImageButton.setTitle("Select New Image", for: .normal)
+            selectImage.image = image
             bikeTextField.text = nameText
             bikeModelTextField.text = modelText
             bikeTypeTextField.text = bikeTypeTxt
             engineNumberTextField.text = engineText
             plateNumberTextFeild.text = plateNumberTxt
             
-
+            
             
         } else {
             addButton.setTitle("Add", for: .normal)
@@ -88,13 +98,26 @@ class addListViewController: UIViewController, UITextFieldDelegate{
     private func checkData() {
         if bikeTextField.text == "" {
             displayAlert()
-            
-        } else if bikeModelTextField.text == "" {
+        }
+        else if selectImage.image == nil{
             displayAlert()
-        }else {
+        }
+        else if bikeModelTextField.text == "" {
+            displayAlert()
+        }
+        else if bikeTypeTextField.text == ""{
+            displayAlert()
+        }
+        else if plateNumberTextFeild.text == "" {
+            displayAlert()
+        }
+        else if engineNumberTextField.text == "" {
+            displayAlert()
+        }
+        else {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 self.dismiss(animated: true) { [self] in
-                    myList = MyList(engineNumber : engineText ,bikeName: nameText, bikeModel: modelText, bikeType: bikeTypeTxt, bikePlateNumber: plateNumberTxt, index: index)
+                    myList = MyList(image: selectImage.image!, engineNumber : engineText ,bikeName: nameText, bikeModel: modelText, bikeType: bikeTypeTxt, bikePlateNumber: plateNumberTxt, index: index)
                     print(bikeTextField)
                     delegate?.passMyList(with: myList)
                     activityLoader.stopAnimating()
@@ -102,6 +125,34 @@ class addListViewController: UIViewController, UITextFieldDelegate{
                 }
             }
         }
+    }
+    private func getImageGallery() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = .photoLibrary
+        self.present(imagePicker, animated: true, completion: nil)
+    }
+    
+    private func getImageCamera() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = .camera
+        self.present(imagePicker, animated: true, completion: nil)
+    }
+    
+    func imagePiker(){
+        let alert = UIAlertController(title: "Select Image.", message: "You can select image with photos or camera.", preferredStyle: .alert)
+        let gallery = UIAlertAction(title: "Photos", style: .default) {_ in
+            self.getImageGallery()
+        }
+        
+        let camera = UIAlertAction(title: "Camera", style: .default) {_ in
+            self.getImageCamera()
+        }
+        
+        alert.addAction(gallery)
+        alert.addAction(camera)
+        present(alert, animated: true)
     }
     @objc func cancelClicked() {
         self.view.endEditing(true)
@@ -111,6 +162,9 @@ class addListViewController: UIViewController, UITextFieldDelegate{
         view.endEditing(true)
     }
     
+    @IBAction func selectImageButtonAction(_ sender: Any) {
+        imagePiker()
+    }
     @IBAction func cancelButtonAction(_ sender: Any) {
         delegate?.setButtonState()
         dismiss(animated: true)
@@ -185,4 +239,23 @@ class addListViewController: UIViewController, UITextFieldDelegate{
         }
     }
     
+}
+
+extension addListViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate{
+    
+    func imagePickerController(_ piker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
+        if let selectedImage = info[.originalImage] as? UIImage {
+            selectImage.image = selectedImage
+            selectImageButton.layer.borderWidth = 0
+            selectImageButton.layer.borderColor = UIColor.clear.cgColor
+            selectImageButton.setTitleColor(.white, for: .normal)
+            selectImageButton.setTitle("Select New Image", for: .normal)
+            
+            piker.dismiss(animated: true,completion: nil)
+        }
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true)
+    }
 }
