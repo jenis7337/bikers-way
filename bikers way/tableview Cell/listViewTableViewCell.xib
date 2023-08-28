@@ -18,19 +18,19 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QPe-cb-2QI">
-                        <rect key="frame" x="0.0" y="0.0" width="331" height="114"/>
+                        <rect key="frame" x="10" y="0.0" width="321" height="114"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="jqT-C5-A7H">
-                                <rect key="frame" x="10" y="34" width="246" height="45.333333333333343"/>
+                                <rect key="frame" x="10" y="34" width="236" height="45.333333333333343"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jYv-wv-FmA">
-                                        <rect key="frame" x="0.0" y="0.0" width="246" height="23"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="236" height="23"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="19"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TYC-bA-LkS">
-                                        <rect key="frame" x="0.0" y="25" width="246" height="20.333333333333329"/>
+                                        <rect key="frame" x="0.0" y="25" width="236" height="20.333333333333329"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20.333333333333329" id="bQe-YJ-nEz"/>
                                         </constraints>
@@ -44,7 +44,7 @@
                                 </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aqB-zc-oB0">
-                                <rect key="frame" x="266" y="34" width="56" height="46"/>
+                                <rect key="frame" x="256" y="34" width="56" height="46"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="56" id="OqI-tT-JCu"/>
                                     <constraint firstAttribute="height" constant="46" id="dDq-lO-IHN"/>
@@ -71,7 +71,7 @@
                     <constraint firstAttribute="bottom" secondItem="QPe-cb-2QI" secondAttribute="bottom" id="3Js-5c-fkM"/>
                     <constraint firstAttribute="trailing" secondItem="QPe-cb-2QI" secondAttribute="trailing" id="cQT-vS-Q3C"/>
                     <constraint firstItem="QPe-cb-2QI" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="iQg-ef-O7V"/>
-                    <constraint firstItem="QPe-cb-2QI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="jVo-wM-7Kg"/>
+                    <constraint firstItem="QPe-cb-2QI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="jVo-wM-7Kg"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

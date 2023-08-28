@@ -30,12 +30,14 @@ class addListViewController: UIViewController, UITextFieldDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUp()
+        setButton()
+        setData()
         popUp.layer.cornerRadius = 10
         activityLoader.stopAnimating()
         activityLoader.isHidden = true
     }
-    private func setUp() {
+
+    func setButton() {
         addButton.layer.cornerRadius = 8
         addButton.layer.borderWidth = 1.4
         addButton.layer.masksToBounds = true
@@ -46,20 +48,22 @@ class addListViewController: UIViewController, UITextFieldDelegate{
         
         activityLoader.style = .large
         activityLoader.isHidden = true
-        
-        [bikeTextField, bikeModelTextField,bikeTypeTextField,bikeModelTextField].forEach { textFields in
+    }
+    func setData(){
+        [engineNumberTextField,bikeTextField, bikeModelTextField,bikeTypeTextField,plateNumberTextFeild].forEach { textFields in
             textFields?.delegate = self
             activityLoader.stopAnimating()
             activityLoader.isHidden = true
         }
-        
         if buttonTitle {
             addButton.setTitle("Edit", for: .normal)
-            engineNumberTextField.text = engineText
             bikeTextField.text = nameText
             bikeModelTextField.text = modelText
             bikeTypeTextField.text = bikeTypeTxt
-            bikeModelTextField.text = modelText
+            engineNumberTextField.text = engineText
+            plateNumberTextFeild.text = plateNumberTxt
+            
+
             
         } else {
             addButton.setTitle("Add", for: .normal)
@@ -106,7 +110,7 @@ class addListViewController: UIViewController, UITextFieldDelegate{
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
-
+    
     @IBAction func cancelButtonAction(_ sender: Any) {
         delegate?.setButtonState()
         dismiss(animated: true)
@@ -120,42 +124,65 @@ class addListViewController: UIViewController, UITextFieldDelegate{
     
     
     
-   
-        func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-            view.endEditing(true)
-            return true
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        view.endEditing(true)
+        return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        switch textField {
+        case bikeTextField:
+            nameText = ""
+            
+        case bikeModelTextField:
+            modelText = ""
+            
+        case bikeTypeTextField :
+            bikeTypeTxt = ""
+            
+        case plateNumberTextFeild :
+            plateNumberTxt = ""
+            
+        case engineNumberTextField :
+            engineText = ""
+            
+        default:
+            break
         }
-        
-        func textFieldDidBeginEditing(_ textField: UITextField) {
-            switch textField {
-            case bikeTextField:
-                nameText = ""
-                
-            case bikeModelTextField:
-                modelText = ""
-                
-                
-            default:
-                break
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        switch textField {
+            
+        case bikeTextField:
+            if let text = textField.text {
+                nameText = text
             }
-        }
-        
-        func textFieldDidEndEditing(_ textField: UITextField) {
-            switch textField {
-                
-            case bikeTextField:
-                if let text = textField.text {
-                    nameText = text
-                }
-                
-            case bikeModelTextField:
-                if let text = textField.text {
-                    modelText = text
-                }
-                
-            default:
-                break
+            
+        case bikeModelTextField:
+            if let text = textField.text {
+                modelText = text
             }
+            
+        case bikeTypeTextField :
+            if let text = textField.text {
+                bikeTypeTxt = text
+            }
+            
+        case plateNumberTextFeild :
+            if let text = textField.text {
+                plateNumberTxt = text
+            }
+            
+        case engineNumberTextField :
+            if let text = textField.text {
+                engineText = text
+            }
+            
+        default:
+            break
         }
+    }
     
 }

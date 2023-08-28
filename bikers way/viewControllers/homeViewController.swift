@@ -5,7 +5,7 @@ class homeViewController: UIViewController {
     @IBOutlet weak var pg: UIProgressView!
     
     var time = Timer()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         pg.progress = 0.0
