@@ -85,7 +85,6 @@ extension listShowViewController : UITableViewDelegate,UITableViewDataSource{
         addListVc.buttonTitle = true
         addListVc.delegate = self
         addListVc.image = arrLists[indexPath.row].image
-        addListVc.engineText = arrLists[indexPath.row].engineNumber
         addListVc.nameText = arrLists[indexPath.row].bikeName
         addListVc.modelText = arrLists[indexPath.row].bikeModel
         addListVc.bikeTypeTxt = arrLists[indexPath.row].bikeType
@@ -108,7 +107,6 @@ extension listShowViewController: AddListTableViewCellDelegate {
         addListVc.buttonTitle = true
         addListVc.delegate = self
         addListVc.image = arrLists[indexPath.row].image
-        addListVc.engineText = arrLists[indexPath.row].engineNumber
         addListVc.nameText = arrLists[index.row].bikeName
         addListVc.modelText = arrLists[index.row].bikeModel
         addListVc.bikeTypeTxt = arrLists[index.row].bikeType

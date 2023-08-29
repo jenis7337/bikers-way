@@ -14,7 +14,6 @@ class addListViewController: UIViewController, UITextFieldDelegate{
     @IBOutlet weak var bikeTextField: UITextField!
     @IBOutlet weak var bikeModelTextField: UITextField!
     @IBOutlet weak var bikeTypeTextField: UITextField!
-    @IBOutlet weak var engineNumberTextField: UITextField!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var plateNumberTextFeild: UITextField!
     @IBOutlet weak var addButton: UIButton!
@@ -91,7 +90,7 @@ class addListViewController: UIViewController, UITextFieldDelegate{
         activityLoader.isHidden = true
     }
     func setData(){
-        [engineNumberTextField,bikeTextField, bikeModelTextField,bikeTypeTextField,plateNumberTextFeild].forEach { textFields in
+        [bikeTextField, bikeModelTextField,bikeTypeTextField,plateNumberTextFeild].forEach { textFields in
             textFields?.delegate = self
             activityLoader.stopAnimating()
             activityLoader.isHidden = true
@@ -105,7 +104,6 @@ class addListViewController: UIViewController, UITextFieldDelegate{
             bikeTextField.text = nameText
             bikeModelTextField.text = modelText
             bikeTypeTextField.text = bikeTypeTxt
-            engineNumberTextField.text = engineText
             plateNumberTextFeild.text = plateNumberTxt
             
             
@@ -146,13 +144,10 @@ class addListViewController: UIViewController, UITextFieldDelegate{
         else if plateNumberTextFeild.text == "" {
             displayAlert()
         }
-        else if engineNumberTextField.text == "" {
-            displayAlert()
-        }
         else {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 self.dismiss(animated: true) { [self] in
-                    myList = MyList(image: selectImage.image!, engineNumber : engineText ,bikeName: nameText, bikeModel: modelText, bikeType: bikeTypeTxt, bikePlateNumber: plateNumberTxt, index: index)
+                    myList = MyList(image: selectImage.image! ,bikeName: nameText, bikeModel: modelText, bikeType: bikeTypeTxt, bikePlateNumber: plateNumberTxt, index: index)
                     print(bikeTextField)
                     delegate?.passMyList(with: myList)
                     activityLoader.stopAnimating()
@@ -198,9 +193,7 @@ class addListViewController: UIViewController, UITextFieldDelegate{
             
         case plateNumberTextFeild :
             plateNumberTxt = ""
-            
-        case engineNumberTextField :
-            engineText = ""
+
             
         default:
             break
@@ -228,11 +221,6 @@ class addListViewController: UIViewController, UITextFieldDelegate{
         case plateNumberTextFeild :
             if let text = textField.text {
                 plateNumberTxt = text
-            }
-            
-        case engineNumberTextField :
-            if let text = textField.text {
-                engineText = text
             }
             
         default:
