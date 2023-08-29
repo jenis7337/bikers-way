@@ -36,6 +36,41 @@ class addListViewController: UIViewController, UITextFieldDelegate{
         setButton()
         setData()
     }
+    private func getImageGallery() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = .photoLibrary
+        self.present(imagePicker, animated: true, completion: nil)
+    }
+    
+    private func getImageCamera() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = .camera
+        self.present(imagePicker, animated: true, completion: nil)
+    }
+    
+    func imagePiker(){
+        let alert = UIAlertController(title: "Select Image.", message: "You can select image with photos or camera.", preferredStyle: .alert)
+        let gallery = UIAlertAction(title: "Photos", style: .default) {_ in
+            self.getImageGallery()
+        }
+        
+        let camera = UIAlertAction(title: "Camera", style: .default) {_ in
+            self.getImageCamera()
+        }
+        
+        alert.addAction(gallery)
+        alert.addAction(camera)
+        present(alert, animated: true)
+    }
+    @objc func cancelClicked() {
+        self.view.endEditing(true)
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
     
     func setButton() {
         popUp.layer.cornerRadius = 10
@@ -126,41 +161,7 @@ class addListViewController: UIViewController, UITextFieldDelegate{
             }
         }
     }
-    private func getImageGallery() {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = .photoLibrary
-        self.present(imagePicker, animated: true, completion: nil)
-    }
     
-    private func getImageCamera() {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = .camera
-        self.present(imagePicker, animated: true, completion: nil)
-    }
-    
-    func imagePiker(){
-        let alert = UIAlertController(title: "Select Image.", message: "You can select image with photos or camera.", preferredStyle: .alert)
-        let gallery = UIAlertAction(title: "Photos", style: .default) {_ in
-            self.getImageGallery()
-        }
-        
-        let camera = UIAlertAction(title: "Camera", style: .default) {_ in
-            self.getImageCamera()
-        }
-        
-        alert.addAction(gallery)
-        alert.addAction(camera)
-        present(alert, animated: true)
-    }
-    @objc func cancelClicked() {
-        self.view.endEditing(true)
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        view.endEditing(true)
-    }
     
     @IBAction func selectImageButtonAction(_ sender: Any) {
         imagePiker()

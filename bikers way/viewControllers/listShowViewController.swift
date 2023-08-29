@@ -69,6 +69,11 @@ extension listShowViewController : UITableViewDelegate,UITableViewDataSource{
         
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
+    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             displayAlert(with: indexPath)
@@ -90,10 +95,32 @@ extension listShowViewController : UITableViewDelegate,UITableViewDataSource{
         present(addListVc, animated: true)
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+}
+
+
+
+// MARK :- LIST DELEGATE TABLE VIEW
+
+extension listShowViewController: AddListTableViewCellDelegate {
+    func editlist(with index: IndexPath) {
+        let addListVc = storyboard?.instantiateViewController(withIdentifier: "addListViewController") as! addListViewController
+        addData.isHidden = true
+        addListVc.buttonTitle = true
+        addListVc.delegate = self
+        addListVc.image = arrLists[indexPath.row].image
+        addListVc.engineText = arrLists[indexPath.row].engineNumber
+        addListVc.nameText = arrLists[index.row].bikeName
+        addListVc.modelText = arrLists[index.row].bikeModel
+        addListVc.bikeTypeTxt = arrLists[index.row].bikeType
+        addListVc.plateNumberTxt = arrLists[index.row].bikePlateNumber
+        addListVc.index = index.row
+        self.indexPath = index
+        present(addListVc, animated: true)
     }
     
+    func deleteList(with index: IndexPath) {
+        displayAlert(with: index)
+    }
 }
 
 // MARK :- LIST DELEGATE
@@ -120,29 +147,5 @@ extension listShowViewController: AddListVcDelegate {
     
     func setButtonState() {
         addData.isHidden = false
-    }
-}
-
-// MARK :- LIST DELEGATE TABLE VIEW
-
-extension listShowViewController: AddListTableViewCellDelegate {
-    func editlist(with index: IndexPath) {
-        let addListVc = storyboard?.instantiateViewController(withIdentifier: "addListViewController") as! addListViewController
-        addData.isHidden = true
-        addListVc.buttonTitle = true
-        addListVc.delegate = self
-        addListVc.image = arrLists[indexPath.row].image
-        addListVc.engineText = arrLists[indexPath.row].engineNumber
-        addListVc.nameText = arrLists[index.row].bikeName
-        addListVc.modelText = arrLists[index.row].bikeModel
-        addListVc.bikeTypeTxt = arrLists[index.row].bikeType
-        addListVc.plateNumberTxt = arrLists[index.row].bikePlateNumber
-        addListVc.index = index.row
-        self.indexPath = index
-        present(addListVc, animated: true)
-    }
-    
-    func deleteList(with index: IndexPath) {
-        displayAlert(with: index)
     }
 }
